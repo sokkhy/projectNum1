@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Articles</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+           
+            img{
+                width: 100px;
+                height: 100px;
+            }
+            .header
+            {
+                font-size: 30pt;
+                text-align: center;
+                background-color: #907867;
+            }
+            .activepage{
+                background-color: graytext;
+            }
+            .notactivepage{ 
+            }
+        </style>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+<!--        <div style="float:right;">
+            <a th:href="@{/articles/filter(page=${articleFilter.page},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit},lang=en)}">En</a>
+            <a th:href="@{/articles/filter(page=${articleFilter.page},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit},lang=kh)}">Kh</a>
+        </div>-->
+        <div class="col-md-12 col-sm-12 header" th:text="#{form.articles.header}">
+            
+        </div>
+            <br/>
+            <div>
+                <label th:text="#{form.articles.infor.category}"></label>
+                <select id="category" th:field="${articleFilter.category_id}">
+                    <option  value="0" >not selected</option>
+                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">not selected</option>
+                </select>
+                <label th:text="#{form.articles.infor.title}"></label><input type="text" th:value="${articleFilter.title}" id="title" />
+                <button id="search">Search</button>
+            </div>
+            <nav aria-label="...">
+    <ul class="pager">
+        <li id="pre" ><a href="#">Previous</a></li>
+        <li id="first"><a href="#">First</a></li>
+        <li id="page"></li>
+        <li id="next"><a href="#">Next</a></li>
+        <li id="last"><a href="#">Last</a></li>
+    </ul>
+</nav>
+<script th:inline="javascript">
+    $(document).ready(function (){
+        var next= /*[[ ${page} ]]*/;
+        var tp=/*[[ ${totalpage} ]]*/;
+
+        /*<![CDATA[*/
+        $('#next').click(function(){
+            next++;
+            if(next> tp){
+                next=tp;
+            }
+            window.location.replace("/index/page?page="+next);
+
+        });
+        $('#pre').click(function(){
+            next--;
+            if(next<1){
+                next=1;
+            }
+            window.location.replace("/index/page?page="+next);
+
+        });
+        $('#first').click(function(){
+            window.location.replace("/index/page?page=1");
+
+        });
+        $('#last').click(function(){
+            window.location.replace("/index/page?page="+tp);
+
+        });
+
+        for(var i=1;i<=tp;i++){
+//                $('#page').append("<button>"+i+"</button>");
+            $('#page').append(`<li><a href="/index/page?page=${i}">${i}</a></li>`);
+        }
+        /*]]>*/
+
+    });
+</script>
+<!--            <div style="text-align: center">
+                <a th:each="i : ${#numbers.sequence( 1,maxpage)}" th:class="(${i}==${articleFilter.page})?activepage:notactivepage" th:text="${i}"
+                   th:href="@{/articles/filter(page=${i},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}"></a>
+            </div>-->
+<!--            <div style="text-align: center">
+                <a  th:href="@{/index/filter(page=1,category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">first</a>
+
+                <a  th:href="(${articleFilter.page}!=1)?@{/articles/filter(page=(${articleFilter.page}-1),category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}:@{/articles/filter(page=1,category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">prev</a> 
+
+                <a  th:href="(${articleFilter.page}!=${maxpage})?@{/articles/filter(page=(${articleFilter.page}+1),category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}:@{/articles/filter(page=${maxpage},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">next</a> 
+
+                <a  th:href="@{/index/filter(page=${maxpage},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">last</a>
+            </div>-->
+        <table border="1" class="table table-hover col-md-12">
+            <thead>
+                <tr>
+                    <th th:text="#{form.articles.infor.id}">ID</th>
+                    <th th:text="#{form.articles.infor.title}">Title</th>
+                    <th th:text="#{form.articles.infor.description}">Description</th>
+                    <th th:text="#{form.articles.infor.author}">Author</th>
+                    <th th:text="#{form.articles.infor.cover}">Cover</th>
+                    <th th:text="#{form.articles.infor.category}">Category</th>
+                    <th th:text="#{form.articles.infor.action}">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="article : ${articles}" th:object="${article}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{title}"></td>
+                    <td th:text="*{description}"></td>
+                    <td th:text="*{author}"></td>
+                    <td>
+                        <img th:src="*{thumbnail}" />
+                    </td>
+                    <td th:text="*{category.name}"></td>
+                    <td>
+                        <a  th:href="@{/index/view(id=*{id})}" th:text="#{form.articles.infor.action.view}"></a><br/>
+                       
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $("#search").click(function() {
+                    
+                
+                var id= $("#category").val();
+                var ti= $("#title").val();
+                /*<![CDATA[*/
+                var ur='/articles/filter?page=1&limit=5';
+                    
+                    if(id!=0)
+                    {
+                        ur+='&category_id='+id;
+                    }
+                    if(ti.length>0)
+                    {
+                        ur+='&title='+ti;   
+                    }           
+                /*]]>*/               
+                window.location.replace(ur);
+            });
+        });
+    </script>
+    </body>
+</html>

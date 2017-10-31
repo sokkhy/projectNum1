@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <link rel="stylesheet" href="/CSS/style.css"/>
+    <title>Update Article</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <style>
+      body{
+         margin: 0 auto;
+    padding: 0;
+    width: 90%;
+    background-color: gray;
+    }
+         .head {
+          font-size: 1em;
+          color: white;
+          width: 100%;
+         height: 100px;
+         background-color: blue;
+         margin: 0 auto;
+         margin-bottom:10px; 
+        }
+        .head a{
+          color: red;
+          font-weight: bold;
+          margin-left: 20px;
+        }
+        #add{
+       color: red;
+    font-weight: bold;
+   margin-left: 650px;
+    font-size: 20px;
+    width: 22px;
+        }
+        .head p{
+          font-size: 4em;
+          text-align: center;
+        }
+        .head select{
+          color: black;
+        }
+        .foot {
+          font-size: 1em;
+          color: white;
+          width: 100%;
+         height: 300px;
+         background-color: blue;
+         margin: 0 auto;
+        margin-top:80px; 
+        }
+        .foot p{
+          text-align: center;
+          font-size: 2em;
+        }
+        #input[type=text] {
+    width: 130px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    margin: 20px;
+    color: black;
+}
+
+#input[type=text]:focus {
+    width: 10%;
+}
+#input{
+  position: relative;
+  margin-top: 20px;
+}
+#search{
+  position: relative;
+  margin-top: -155px;
+}
+#locales{
+    display: none;
+}
+span{
+    display: none;
+}
+.menu{
+
+    height: 53px;
+    margin: -1px;
+    padding: 1px;
+    top: -48px;
+}
+    </style>
+</head>
+<body>
+<div class="head page-header jumbotron" th:include="layout/header :: header"></div>
+<div class="container">
+    <h2>Update article</h2>
+    <form class="form-horizontal" th:action="@{/index/update}" th:object="${article}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="control-label col-sm-2">ID:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"  th:field="*{id}" placeholder="Enter ID"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</span>
+            <label class="control-label col-sm-2" >Title:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"  th:field="*{title}" placeholder="Enter title"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <span th:if="${#fields.hasErrors('author')}" th:errors="*{title}">Title Error</span>
+            <label class="control-label col-sm-2">Author:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:field="*{author}" placeholder="Enter Author" />
+            </div>
+        </div>
+        <div class="form-group">
+            <span th:if="${#fields.hasErrors('thumbnail')}" th:errors="*{title}">Title Error</span>
+            <label class="control-label col-sm-2" >Picture:</label>
+            <div class="col-sm-10">
+               
+                 <input type="file" name="file" />
+        <p th:if="${#fields.hasErrors('thumbnail')}" th:errors="*{thumbnail}"></p>
+            </div>
+              <div class="field div">
+                <label>Category</label>
+                <select class="ui dropdown" th:name="category.id">
+                      <option value="">Choose Category</option>
+                      <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}">Technology</option>
+                </select>
+               
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">UPDATE</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="foot" th:include="layout/footer :: footer"></div>
+</body>
+</html>

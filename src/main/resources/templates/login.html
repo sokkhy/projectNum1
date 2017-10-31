@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <title>Login</title>
+        <style>
+form {
+     background-color: #C02D44;
+    border: 3px solid #f1f1f1;
+    width: 45%;
+    margin: auto;
+    margin-top: 145px;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+button {
+    background-color: #49788D;
+    padding: 14px 20px;
+    margin-top: 39px;
+    margin-left: 278px;
+    font-size: 1.2em;
+    color: #ffffff;
+    cursor: pointer;
+    width: 28%;
+    border-radius: 0px
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 30%;
+    height: 232px;
+    border-radius: 57%;
+   
+}
+
+.container {
+    display: flex;
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+.title{
+    width: 50%;
+    margin: auto;
+    margin-top: -180px;
+    position: absolute;
+    padding: 10px;
+    font-size: 2.5em;
+    color: #DA0700;
+}
+</style>
+    </head>
+    <body onload='document.f.username.focus();'>
+        <div class="title">
+            <h2>Mytime</h2>
+        </div>
+
+        <form name='f' action='/login' method='POST'>
+
+          <div class="imgcontainer">
+                <img src="/store/image/993bccd5-dd03-49e9-ab14-db03ebb55c9e.jpg" alt="Avatar" class="avatar"></img>
+          </div>
+
+          <div class="container">
+            <div style="margin-left: 30px;text-align: center; color:#ffffff;font-size: 1.2em; ">
+                <label><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" value="" required="Cannot empty"></input>
+            </div>
+            <div style="margin-left: 93px; text-align: center; color:#ffffff; font-size: 1.2em;">
+                <label><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required="Cannot empty"></input>
+            </div>
+                
+                <!-- <input type="checkbox" checked="checked"> Remember me </input> -->
+          </div>
+            <button name="submit" type="submit" value="Login" style="">Login</button>
+         <!--  <div class="container" style="background-color:#f1f1f1">
+                <button type="button" class="cancelbtn">Cancel</button>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+          </div>
+ -->
+         <input name="_csrf" type="hidden" value="149c908f-33a9-43e6-bc6e-df160f065ce7"></input>
+
+        </form>
+</body>
+</html>

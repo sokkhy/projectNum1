@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Mytime</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <style>
+    body{
+         margin: 0 auto;
+    padding: 0;
+    width: 90%;
+    background-color: gray;
+    }
+        table,th,tr,td{
+            margin: 0 auto;
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        img{
+            margin-left: 20px;
+            width:200px;
+            height: 150px;
+        }
+        tr, td{
+            width: 250px;
+            color: darkred;
+            text-align: center;
+            font-size: 15px;
+            background-color: white;
+
+        }
+        th{
+          width: 250px;
+            color: white;
+            text-align: center;
+          background-color: blue;
+
+        }
+        .head {
+          font-size: 1em;
+          color: white;
+          width: 100%;
+         height: 100px;
+         background-color: blue;
+         margin: 0 auto;
+         margin-bottom:10px; 
+        }
+        .head a{
+          color: red;
+          font-weight: bold;
+          margin-left: 20px;
+        }
+        #add{
+       color: red;
+    font-weight: bold;
+    margin-left: 149px;
+    font-size: 20px;
+    width: 22px;
+        }
+        .head p{
+          font-size: 4em;
+          text-align: center;
+        }
+        .head select{
+          color: black;
+        }
+        .foot {
+          font-size: 1em;
+          color: white;
+          width: 100%;
+         height: 300px;
+         background-color: blue;
+         margin: 0 auto;
+         margin-top:80px; 
+        }
+        .foot p{
+          text-align: center;
+          font-size: 2em;
+        }
+       .divlove:hover{
+          color: black;
+        }
+        
+        #input[type=text] {
+    width: 130px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    margin: 20px;
+    color: black;
+}
+
+#input[type=text]:focus {
+    width: 10%;
+}
+#input{
+  position: relative;
+  margin-top: 20px;
+}
+#search{
+  position: relative;
+  margin-top: -155px;
+}
+.menu{
+
+    height: 53px;
+    margin: -1px;
+    padding: 1px;
+    top: -48px;
+}
+.thumbnail{
+    width: 380px;
+    height: 337px;
+}
+.row{
+   width: 80%;
+    margin: 0 auto;
+}
+    </style>
+
+</head>
+<body>
+<div class="head page-header jumbotron" th:include="layout/header :: header"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            var selectedOption = $('#locales').val();
+            if (selectedOption != ''){
+                window.location.replace('/index/international?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
+<!--    <table>
+       <tr>
+           <th th:text="#{lang.id}"></th>
+           <th th:text="#{lang.title}"></th>
+           <th th:text="#{lang.author}"></th>
+           <th th:text="#{lang.category}"></th>
+
+           <th th:text="#{lang.thumbnail}"></th>
+          
+       </tr>
+
+       <tr th:each="art:${article}" th:object= "${art}">
+           <td th:text="*{id}"></td>
+           <td th:text="*{title}"></td>
+           <td th:text="*{author}"></td>
+           <td th:text="*{category.name}"></td>
+           <td>
+               <img src="http://7bna.net/images/railway/railway-1.jpg" th:src="*{thumbnail}" alt=""/>
+           </td>
+           <td>
+
+               <a class="btn btn-primary" th:text="#{lang.view}" th:href="@{/index/view(id=*{id})}"></a>
+               <a class="btn btn-danger"  th:text="#{lang.remove}" th:href="@{/index/remove(id=*{id})}"></a>
+               <a class="btn btn-warning"  th:text="#{lang.update}" th:href="@{/index/edit/{id}(id=*{id})}"></a>
+
+           </td>
+       </tr>
+   </table> -->
+<div class="bootstrap-demo">
+  <div class="row">
+
+      <div class="col-lg-12"> <!-- column 1 -->
+        <div class="thumbnail col-sm-4" th:each="art:${article}" th:object= "${art}"> <!--  thumbnail 1  -->
+           <img src="http://7bna.net/images/railway/railway-1.jpg" th:src="*{thumbnail}" alt=""/>
+          <div class="caption"> <!-- caption -->
+            <h3 th:text="*{category.name}"></h3>
+            <p>
+               <a class="btn btn-primary" th:text="#{lang.view}" th:href="@{/index/view(id=*{id})}"></a>
+               <a class="btn btn-danger"  th:text="#{lang.remove}" th:href="@{/index/remove(id=*{id})}"></a>
+               <a class="btn btn-warning"  th:text="#{lang.update}" th:href="@{/index/edit/{id}(id=*{id})}"></a>
+            </p>  <!-- btn 2 -->
+          </div>
+        </div>
+      </div>
+    
+     <!--  <div class="col-sm-6 col-md-4"> column 2
+       <div class="thumbnail"> thumbnail 2
+         <img src="statue-liberty.jpg" alt="Statue of Liberty thumbnail">  </img>image 2
+         <div class="caption">  caption
+           <h3>Statue of Liberty</h3>
+           <p>The Statue of Liberty is a colossal neoclassical sculpture on Liberty
+             Island in the middle of New York Harbor, in Manhattan, New York City.</p>
+           <p><a href="#" class="btn btn-primary" role="button">Buy Tickets</a>   btn 1
+             <a href="#" class="btn btn-default" role="button">Add to Wishlist</a></p>  btn 2
+         </div>
+       </div>
+     </div>
+      -->
+    </div>
+  </div>
+<div class="container">
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locale").change(function () {
+                var selectedOption = $('#locales').val();
+                if (selectedOption != ''){
+                    window.location.replace('/indexl?ang=' + selectedOption);
+                }
+            });
+             $("#selectcat").change(function () {
+                cat = $('#selectcat').val();
+            });
+
+             $(".btnSearch").click(function(){
+                var title =  $('.txtSearch').val();
+                /*<![CDATA[*/
+                window.location.replace('/index/search?categoryid=' + cat + '&articletitle=' + title);
+                /*]]>*/
+            });
+        });
+    </script>
+</div>
+<nav aria-label="...">
+    <ul class="pager">
+        <li id="pre" ><a href="#">Previous</a></li>
+        <li id="first"><a href="#">First</a></li>
+        <li id="page"></li>
+        <li id="next"><a href="#">Next</a></li>
+        <li id="last"><a href="#">Last</a></li>
+    </ul>
+</nav>
+<div class="foot" th:include="layout/footer :: footer"></div>
+<script th:inline="javascript">
+    $(document).ready(function (){
+        var next= /*[[ ${page} ]]*/;
+        var tp=/*[[ ${totalpage} ]]*/;
+
+        /*<![CDATA[*/
+        $('#next').click(function(){
+            next++;
+            if(next> tp){
+                next=tp;
+            }
+            window.location.replace("/index/page?page="+next);
+
+        });
+        $('#pre').click(function(){
+            next--;
+            if(next<1){
+                next=1;
+            }
+            window.location.replace("/index/page?page="+next);
+
+        });
+        $('#first').click(function(){
+            window.location.replace("/index/page?page=1");
+
+        });
+        $('#last').click(function(){
+            window.location.replace("/index/page?page="+tp);
+
+        });
+
+        for(var i=1;i<=tp;i++){
+//                $('#page').append("<button>"+i+"</button>");
+            $('#page').append(`<li><a href="/index/page?page=${i}">${i}</a></li>`);
+        }
+        /*]]>*/
+
+    });
+</script>
+
+</body>
+</html>
